@@ -1,0 +1,58 @@
+import java.util.*;
+
+public class Main {
+  
+  // kadane's algorithm
+  public static int[] getPrefixMaxSum(int[] arr){
+    int n = arr.length;
+    int[] prefixMaxSum = new int[n+1];
+    
+    prefixMaxSum[0] = arr[0];
+    int currMax = arr[0];
+    
+    for(int i=1; i<arr.length; i++){
+      currMax = Math.max(0, Math.max(currMax+arr[i], arr[i]));
+      prefixMaxSum[i] = currMax;
+    }
+    
+    return prefixMaxSum;
+  }
+  
+  public static int[] getSufixMaxSum(int[] arr){
+    int n = arr.length;
+    int[] suffixMaxSum = new int[n+1];
+    suffixMaxSum[n-1] = arr[n-1];
+    int currMax = arr[n-1];
+    
+    for(int i=n-2; i>=0; i--){
+      currMax = Math.max(0, Math.max(currMax+arr[i], arr[i]));
+      suffixMaxSum[i] = currMax;
+    }
+    
+    return suffixMaxSum;
+  }
+  
+  public static int findMaxSumOfTwoSubarray(int[] arr){
+    int n = arr.length;
+    int[] prefixMaxSum = getPrefixMaxSum(arr);
+    int[] suffixMaxSum = getSufixMaxSum(arr);
+    
+    
+    int maxSum = 0;
+    
+    for (int i = 0; i < n; i++) {
+        maxSum = Math.max(maxSum, prefixMaxSum[i] + suffixMaxSum[i]);
+    }
+    
+    return maxSum;
+    
+  }
+  
+  
+  
+  public static void main(String[] args) {
+      int[] arr = { 5, -2, 3, -6, 5 };
+      
+      System.out.println("Maximum sum of two non overlapping subarray is : "+ findMaxSumOfTwoSubarray(arr));
+  }
+}

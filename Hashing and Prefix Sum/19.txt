@@ -1,0 +1,35 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+      int[] a = new int[]{1, 2, 3};
+      
+      int totalSum = 0, n = a.length, res = 0;
+      
+      int[] digit = new int[10]; // 10 = len of digit
+      
+      for(int i=0; i<n; i++){
+        int d = Integer.toString(a[i]).length();
+        
+        digit[d]++;
+        
+        totalSum += a[i];
+      }
+      
+      for(int i=0; i<n; i++){
+        int leftSum = 0;
+        
+        int j = 1;
+        
+        while(j <= 7){
+          leftSum += a[i]*Math.pow(10, j)*digit[j];
+          j++;
+        }
+        
+        res += leftSum + totalSum;
+        
+      }
+      
+      System.out.println(res);
+  }
+}

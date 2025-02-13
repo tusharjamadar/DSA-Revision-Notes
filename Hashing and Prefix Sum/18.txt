@@ -1,0 +1,29 @@
+import java.util.*;
+
+public class Main {
+    public static int findSubarray(int[] arr, int k){
+      int n = arr.length;
+      
+      HashMap<Integer, Integer> mp = new HashMap<>();
+      int minLen = Integer.MAX_VALUE;
+      for(int j=0; j<n; j++){
+        int end = arr[j];
+        int start = k - end;
+        if(mp.containsKey(start)){
+          int len = j - mp.get(start) + 1;
+          minLen = Math.min(minLen, len);
+        }
+        
+        mp.put(end, j);
+        
+      }
+      return minLen;
+    }
+    public static void main(String[] args) {
+      int[] arr = new int[]{5, 6, 7, 8, 1, 10, 4, 3, 2, 1};
+      int k = 8;
+      
+      // find number of shortest subarray whoes sum of starting and ending element is k
+      System.out.println(findSubarray(arr, k));
+  }
+}
